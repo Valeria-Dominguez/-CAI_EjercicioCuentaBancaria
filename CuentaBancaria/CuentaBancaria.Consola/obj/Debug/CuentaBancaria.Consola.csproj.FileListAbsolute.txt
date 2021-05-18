@@ -1,0 +1,7 @@
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\bin\Debug\CuentaBancaria.Consola.exe.config
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\bin\Debug\CuentaBancaria.Consola.exe
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\bin\Debug\CuentaBancaria.Consola.pdb
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\obj\Debug\CuentaBancaria.Consola.csprojAssemblyReference.cache
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\obj\Debug\CuentaBancaria.Consola.csproj.CoreCompileInputs.cache
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\obj\Debug\CuentaBancaria.Consola.exe
+C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Consola\obj\Debug\CuentaBancaria.Consola.pdb

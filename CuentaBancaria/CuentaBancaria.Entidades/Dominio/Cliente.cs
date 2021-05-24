@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CuentaBancaria.Entidades
 {
+    [DataContract]
+
     public class Cliente:Persona
     {
         List<Cuenta> _cuentas;
@@ -15,6 +18,9 @@ namespace CuentaBancaria.Entidades
         public Cliente(string id, string nombre, string domicilio, string numeroTel, string email) : base(id, nombre, domicilio, numeroTel, email)
         {
             this._cuentas = new List<Cuenta>();
+        }
+        public Cliente()
+        {
         }
 
 

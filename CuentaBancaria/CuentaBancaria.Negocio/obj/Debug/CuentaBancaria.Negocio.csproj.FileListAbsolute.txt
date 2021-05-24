@@ -7,3 +7,16 @@ C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\Cu
 C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Entidades.dll
 C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Entidades.pdb
 C:\Users\Valeria\source\repos\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\CuentaBancaria.Negocio.csproj.CopyComplete
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\CuentaBancaria.Negocio.csprojAssemblyReference.cache
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\CuentaBancaria.Negocio.csproj.CoreCompileInputs.cache
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\CuentaBancaria.Negocio.dll
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\CuentaBancaria.Negocio.pdb
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Negocio.dll
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Negocio.pdb
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Datos.dll
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Entidades.dll
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Datos.pdb
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\CuentaBancaria.Entidades.pdb
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\obj\Debug\CuentaBancaria.Negocio.csproj.CopyComplete
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.Negocio\bin\Debug\Newtonsoft.Json.xml

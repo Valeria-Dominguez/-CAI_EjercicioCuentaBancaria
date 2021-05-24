@@ -14,15 +14,17 @@ namespace CuentaBancaria.GUI
 {
     public partial class FormCuentas : Form
     {
-        private SucBanco _sucBanco;
+        private ClienteNegocio _clienteNegocio;
         private Cliente _clienteSeleccionado;
 
-        public FormCuentas(SucBanco sucBanco, Cliente cliente)
+        public FormCuentas(Cliente cliente)
         {
-            _sucBanco = sucBanco;
+            _clienteNegocio = new ClienteNegocio();
             _clienteSeleccionado = cliente;
             InitializeComponent();
         }
+
+        
         private void FormCuentas_Load(object sender, EventArgs e)
         {
             lbIdCliente.Text = $"Cliente: {_clienteSeleccionado.Nombre}";
@@ -206,5 +208,6 @@ namespace CuentaBancaria.GUI
                 MessageBox.Show(exception.Message);
             }
         }
+        
     }
 }

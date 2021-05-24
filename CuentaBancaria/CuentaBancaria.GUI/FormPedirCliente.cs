@@ -13,14 +13,16 @@ using CuentaBancaria.Negocio;
 namespace CuentaBancaria.GUI
 {
     public partial class FormPedirCliente : Form
-    {
-        private SucBanco _sucBanco;
-        public FormPedirCliente(SucBanco sucBanco)
+    {        
+        private ClienteNegocio _clienteNegocio;
+
+        public FormPedirCliente()
         {
-            _sucBanco = sucBanco;
             InitializeComponent();
+            _clienteNegocio = new ClienteNegocio();
         }
 
+        
         private void FormPedirCliente_Load(object sender, EventArgs e)
         {
             Limpiar();
@@ -36,8 +38,8 @@ namespace CuentaBancaria.GUI
             {
                 Cliente cliente = null;
                 if (txtIdCliente.Text == string.Empty) { throw new Exception("El campo no puede estar vacío"); }
-                cliente = _sucBanco.BuscarCliente(txtIdCliente.Text);
-                FormCuentas frmCuentas = new FormCuentas(_sucBanco, cliente);
+                //cliente = _clienteNegocio.BuscarCliente(txtIdCliente.Text);
+                FormCuentas frmCuentas = new FormCuentas(cliente);
                 frmCuentas.Owner = this;
                 frmCuentas.Show();
                 this.Hide();
@@ -54,5 +56,6 @@ namespace CuentaBancaria.GUI
             this.Owner.Show();
             this.Close();
         }
+        
     }
 }

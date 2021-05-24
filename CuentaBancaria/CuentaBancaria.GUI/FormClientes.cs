@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuentaBancaria.Entidades;
 using CuentaBancaria.Negocio;
+using CuentaBancaria.Entidades.Modelos;
 
 namespace CuentaBancaria.GUI
 {
     public partial class FormClientes : Form
     {
-        private SucBanco _sucBanco;
+        private ClienteNegocio _clienteNegocio;
 
-        public FormClientes(SucBanco sucBanco)
+        public FormClientes()
         {
-            _sucBanco = sucBanco;
             InitializeComponent();
+            _clienteNegocio = new ClienteNegocio();
         }
 
         private void FormListaClientes_Load(object sender, EventArgs e)
@@ -29,8 +30,15 @@ namespace CuentaBancaria.GUI
 
         private void CargarLista()
         {
-            LimpiarLista();
-            lstClientes.DataSource = _sucBanco.Clientes;
+            try
+            {
+                LimpiarLista();
+                lstClientes.DataSource = _clienteNegocio.Traer();
+            }
+            catch (Exception exe)
+            {
+                MessageBox.Show(exe.Message);
+            }
         }
 
         private void LimpiarLista()
@@ -46,7 +54,14 @@ namespace CuentaBancaria.GUI
 
         private void btnRecargar_Click(object sender, EventArgs e)
         {
-            CargarLista();
+            try
+            {
+                CargarLista();
+            }
+            catch (Exception exe)
+            {
+                MessageBox.Show(exe.Message);
+            }
         }
 
         private void lstClientes_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,21 +77,20 @@ namespace CuentaBancaria.GUI
                 txtIdCliente.Text = clienteSeleccionado.Id;
                 txtNombre.Text = clienteSeleccionado.Nombre;
                 txtDomicilio.Text = clienteSeleccionado.Domicilio;
-                txtTelefono.Text = clienteSeleccionado.NumeroTel;
+                txtTelefono.Text = clienteSeleccionado.NumeroTel.ToString();
                 txtEmail.Text = clienteSeleccionado.Email;
             }
         }
 
+        
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
             try
             {
-                Cliente cliente = null;
-                ValidarStrings();
-                cliente = new Cliente(txtIdCliente.Text, txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
-                _sucBanco.GuardarCliente(cliente);
-                MessageBox.Show("Cliente agregado");
-                Limpiar();
+                ValidarCampos();
+                TransactionResult resultado = _clienteNegocio.Agregar(txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
+                MessageBox.Show(resultado.ToString());
+                LimpiarCampos();
                 CargarLista();
             }
             catch (Exception exception)
@@ -84,6 +98,9 @@ namespace CuentaBancaria.GUI
                 MessageBox.Show(exception.Message);
             }
         }
+        
+
+        
         private void btnModificarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -92,11 +109,11 @@ namespace CuentaBancaria.GUI
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
                 if (clienteSeleccionado.Id != txtIdCliente.Text) { throw new Exception("No puede modificarse el ID"); }
 
-                ValidarStrings();
+                ValidarCampos();
                 clienteModificado = new Cliente(txtIdCliente.Text, txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
-                _sucBanco.ModificarCliente(clienteModificado, clienteSeleccionado);
+                //_clienteNegocio.ModificarCliente(clienteModificado, clienteSeleccionado);
                 MessageBox.Show("Cliente modificado:");
-                Limpiar();
+                LimpiarCampos();
                 CargarLista();
             }
             catch (Exception exception)
@@ -104,39 +121,43 @@ namespace CuentaBancaria.GUI
                 MessageBox.Show(exception.Message);
             }
         }
+        
 
+        
         private void btnEliminarCliente_Click(object sender, EventArgs e)
         {
             try
             {
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
-                _sucBanco.EliminarCliente(clienteSeleccionado);
+                //_clienteNegocio.EliminarCliente(clienteSeleccionado);
                 MessageBox.Show($"Cliente eliminado");
-                Limpiar();
+                LimpiarCampos();
                 CargarLista();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
-        }
+        }       
 
 
-        private void ValidarStrings()
+        private void ValidarCampos()
         {
             if (
-                txtIdCliente.Text == string.Empty ||
                 txtNombre.Text == string.Empty ||
                 txtDomicilio.Text == string.Empty ||
                 txtTelefono.Text == string.Empty ||
                 txtEmail.Text == string.Empty
                 )
-            {
+
                 throw new Exception("Ningún campo puede estar vacío");
-            }
+            else if (
+                !int.TryParse(txtTelefono.Text, out int tel)
+                )
+                throw new Exception("Teléfono : Debe ingresar un número");
         }
 
-        private void Limpiar()
+        private void LimpiarCampos()
         {
             txtIdCliente.Text = string.Empty;
             txtNombre.Text = string.Empty;
@@ -147,7 +168,7 @@ namespace CuentaBancaria.GUI
 
         private void btnLimpiar_Click_1(object sender, EventArgs e)
         {
-            Limpiar();
+            LimpiarCampos();
         }
 
     }

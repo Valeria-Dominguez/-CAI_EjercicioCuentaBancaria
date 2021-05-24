@@ -54,7 +54,7 @@ namespace CuentaBancaria.GUI
             this.lstClientes.FormattingEnabled = true;
             this.lstClientes.Location = new System.Drawing.Point(12, 12);
             this.lstClientes.Name = "lstClientes";
-            this.lstClientes.Size = new System.Drawing.Size(392, 251);
+            this.lstClientes.Size = new System.Drawing.Size(523, 251);
             this.lstClientes.TabIndex = 0;
             this.lstClientes.SelectedIndexChanged += new System.EventHandler(this.lstClientes_SelectedIndexChanged);
             // 
@@ -81,7 +81,7 @@ namespace CuentaBancaria.GUI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(882, 28);
+            this.label2.Location = new System.Drawing.Point(947, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 4;
@@ -89,15 +89,17 @@ namespace CuentaBancaria.GUI
             // 
             // txtIdCliente
             // 
-            this.txtIdCliente.Location = new System.Drawing.Point(496, 40);
+            this.txtIdCliente.Enabled = false;
+            this.txtIdCliente.Location = new System.Drawing.Point(561, 40);
             this.txtIdCliente.Name = "txtIdCliente";
+            this.txtIdCliente.ReadOnly = true;
             this.txtIdCliente.Size = new System.Drawing.Size(404, 20);
             this.txtIdCliente.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(493, 12);
+            this.label1.Location = new System.Drawing.Point(558, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 3;
@@ -105,7 +107,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(496, 75);
+            this.txtNombre.Location = new System.Drawing.Point(561, 75);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(404, 20);
             this.txtNombre.TabIndex = 7;
@@ -113,7 +115,7 @@ namespace CuentaBancaria.GUI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(859, 62);
+            this.label3.Location = new System.Drawing.Point(924, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 6;
@@ -121,7 +123,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtDomicilio
             // 
-            this.txtDomicilio.Location = new System.Drawing.Point(496, 112);
+            this.txtDomicilio.Location = new System.Drawing.Point(561, 112);
             this.txtDomicilio.Name = "txtDomicilio";
             this.txtDomicilio.Size = new System.Drawing.Size(404, 20);
             this.txtDomicilio.TabIndex = 9;
@@ -129,7 +131,7 @@ namespace CuentaBancaria.GUI
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(851, 98);
+            this.label4.Location = new System.Drawing.Point(916, 98);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 8;
@@ -137,7 +139,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtTelefono
             // 
-            this.txtTelefono.Location = new System.Drawing.Point(496, 149);
+            this.txtTelefono.Location = new System.Drawing.Point(561, 149);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(404, 20);
             this.txtTelefono.TabIndex = 11;
@@ -145,7 +147,7 @@ namespace CuentaBancaria.GUI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(851, 135);
+            this.label5.Location = new System.Drawing.Point(916, 135);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 13);
             this.label5.TabIndex = 10;
@@ -153,7 +155,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(496, 186);
+            this.txtEmail.Location = new System.Drawing.Point(561, 186);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(404, 20);
             this.txtEmail.TabIndex = 13;
@@ -161,7 +163,7 @@ namespace CuentaBancaria.GUI
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(865, 172);
+            this.label6.Location = new System.Drawing.Point(930, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 13);
             this.label6.TabIndex = 12;
@@ -169,7 +171,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(825, 241);
+            this.btnModificar.Location = new System.Drawing.Point(890, 241);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 15;
@@ -179,7 +181,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(825, 269);
+            this.btnEliminar.Location = new System.Drawing.Point(890, 269);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 16;
@@ -189,7 +191,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(825, 212);
+            this.btnAgregar.Location = new System.Drawing.Point(890, 212);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 14;
@@ -199,7 +201,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(496, 212);
+            this.btnLimpiar.Location = new System.Drawing.Point(561, 212);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 19;
@@ -211,7 +213,7 @@ namespace CuentaBancaria.GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 450);
+            this.ClientSize = new System.Drawing.Size(977, 450);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnEliminar);

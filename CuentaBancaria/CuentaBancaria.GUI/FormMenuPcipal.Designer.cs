@@ -29,21 +29,21 @@ namespace CuentaBancaria.GUI
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblNombreSucBanco = new System.Windows.Forms.Label();
+            this.lblTituloMenuPcipal = new System.Windows.Forms.Label();
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnCuentas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblNombreSucBanco
             // 
-            this.lblNombreSucBanco.AutoSize = true;
-            this.lblNombreSucBanco.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.lblNombreSucBanco.Location = new System.Drawing.Point(23, 19);
-            this.lblNombreSucBanco.Name = "lblNombreSucBanco";
-            this.lblNombreSucBanco.Size = new System.Drawing.Size(48, 17);
-            this.lblNombreSucBanco.TabIndex = 0;
-            this.lblNombreSucBanco.Text = "Banco";
-            this.lblNombreSucBanco.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblTituloMenuPcipal.AutoSize = true;
+            this.lblTituloMenuPcipal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.lblTituloMenuPcipal.Location = new System.Drawing.Point(23, 19);
+            this.lblTituloMenuPcipal.Name = "lblNombreSucBanco";
+            this.lblTituloMenuPcipal.Size = new System.Drawing.Size(48, 17);
+            this.lblTituloMenuPcipal.TabIndex = 0;
+            this.lblTituloMenuPcipal.Text = "Banco";
+            this.lblTituloMenuPcipal.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnClientes
             // 
@@ -72,7 +72,7 @@ namespace CuentaBancaria.GUI
             this.ClientSize = new System.Drawing.Size(360, 307);
             this.Controls.Add(this.btnCuentas);
             this.Controls.Add(this.btnClientes);
-            this.Controls.Add(this.lblNombreSucBanco);
+            this.Controls.Add(this.lblTituloMenuPcipal);
             this.Name = "FormMenuPcipal";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.FormMenuPcipal_Load);
@@ -83,7 +83,7 @@ namespace CuentaBancaria.GUI
 
         #endregion
 
-        private System.Windows.Forms.Label lblNombreSucBanco;
+        private System.Windows.Forms.Label lblTituloMenuPcipal;
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Button btnCuentas;
     }

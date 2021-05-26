@@ -15,40 +15,49 @@ namespace CuentaBancaria.GUI
     public partial class FormPedirCliente : Form
     {        
         private ClienteNegocio _clienteNegocio;
+        private Cliente _clienteSeleccionado;
 
         public FormPedirCliente()
         {
             InitializeComponent();
             _clienteNegocio = new ClienteNegocio();
+            _clienteSeleccionado = new Cliente();
         }
-
         
         private void FormPedirCliente_Load(object sender, EventArgs e)
         {
-            Limpiar();
-        }
-        private void Limpiar()
-        {
-            txtIdCliente.Text = string.Empty;
+            _clienteSeleccionado = null;
+            CargarLista();
         }
 
-        private void btnAByMCuentas_Click(object sender, EventArgs e)
+        private void CargarLista()
         {
             try
             {
-                Cliente cliente = null;
-                if (txtIdCliente.Text == string.Empty) { throw new Exception("El campo no puede estar vacío"); }
-                //cliente = _clienteNegocio.BuscarCliente(txtIdCliente.Text);
-                FormCuentas frmCuentas = new FormCuentas(cliente);
-                frmCuentas.Owner = this;
-                frmCuentas.Show();
-                this.Hide();
-                Limpiar();
+                lstClientes.DataSource = null;
+                lstClientes.DataSource = _clienteNegocio.Traer();
             }
-            catch (Exception exception)
+            catch (Exception exe)
             {
-                MessageBox.Show(exception.Message);
+                MessageBox.Show(exe.Message);
             }
+        }
+
+        private void lstClientes_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (lstClientes.DataSource != null)
+            {
+                this._clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
+                lblNombreCliente.Text = _clienteSeleccionado.Nombre;
+            }
+        }
+
+        private void btnContinuar_Click(object sender, EventArgs e)
+        {
+            FormCuentas frmCuentas = new FormCuentas(this._clienteSeleccionado);
+            frmCuentas.Owner = this;
+            this.Hide();
+            frmCuentas.Show();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -56,6 +65,5 @@ namespace CuentaBancaria.GUI
             this.Owner.Show();
             this.Close();
         }
-        
     }
 }

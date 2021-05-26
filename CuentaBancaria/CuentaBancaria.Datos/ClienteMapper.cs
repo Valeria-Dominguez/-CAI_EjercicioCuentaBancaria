@@ -14,15 +14,15 @@ namespace CuentaBancaria.Datos
     {
         public List <Cliente> TraerTodos()
         {
-            string json2 = WebHelper.Get("cliente");
-            List<Cliente> resultado = MapList(json2);
+            string json = WebHelper.Get("cliente");
+            List<Cliente> resultado = MapList(json);
             return resultado;
         }
 
-        private List<Cliente> MapList(string json2)
+        private List<Cliente> MapList(string json)
         {
-            List<Cliente> lst = JsonConvert.DeserializeObject< List < Cliente >>(json2);
-            return lst;
+            List<Cliente> clientes = JsonConvert.DeserializeObject< List < Cliente >>(json);
+            return clientes;
         }
 
         public TransactionResult Insertar (Cliente cliente)
@@ -33,9 +33,10 @@ namespace CuentaBancaria.Datos
             return lst;
         }
 
-        private NameValueCollection ReverseMap(Cliente cliente)
+        private NameValueCollection ReverseMap (Cliente cliente)
         {
             NameValueCollection n = new NameValueCollection();
+            n.Add("dni", cliente.Dni.ToString());
             n.Add("nombre", cliente.Nombre);
             n.Add("direccion", cliente.Domicilio);
             n.Add("telefono", cliente.NumeroTel.ToString());

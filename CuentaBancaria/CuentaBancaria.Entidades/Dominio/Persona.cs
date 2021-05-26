@@ -11,14 +11,14 @@ namespace CuentaBancaria.Entidades
 
     public abstract class Persona
     {
-        string _id;
+        int _dni;
         string _nombre;
         string _domicilio;
         string _numeroTel;
         string _email;
 
-        [DataMember(Name ="id")]
-        public string Id { get => _id; set => _id = value; }
+        [DataMember(Name = "dni")]
+        public int Dni { get => _dni; set => _dni = value; }
 
         [DataMember(Name = "nombre")]
         public string Nombre { get => _nombre; set => _nombre = value; }
@@ -32,9 +32,9 @@ namespace CuentaBancaria.Entidades
         [DataMember(Name = "email")]
         public string Email { get => _email; set => _email = value; }
 
-        protected Persona(string id, string nombre, string domicilio, string numeroTel, string email)
+        protected Persona(int dni, string nombre, string domicilio, string numeroTel, string email)
         {
-            this._id = id;
+            this._dni = dni;
             this._nombre = nombre;
             this._domicilio = domicilio;
             this._numeroTel = numeroTel;
@@ -45,9 +45,5 @@ namespace CuentaBancaria.Entidades
 
         }
 
-        public override string ToString()
-        {
-            return $" Id: {this._id}\n Nombre y apellido: {this._nombre}\n Domicilio: {this._domicilio}\n Teléfono: {this._numeroTel}\n Email: {this._email}\n\n";
-        }
     }
 }

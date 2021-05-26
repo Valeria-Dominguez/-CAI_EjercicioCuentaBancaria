@@ -32,18 +32,13 @@ namespace CuentaBancaria.GUI
         {
             try
             {
-                LimpiarLista();
+                lstClientes.DataSource = null;
                 lstClientes.DataSource = _clienteNegocio.Traer();
             }
             catch (Exception exe)
             {
                 MessageBox.Show(exe.Message);
             }
-        }
-
-        private void LimpiarLista()
-        {
-            lstClientes.DataSource = null;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -54,41 +49,35 @@ namespace CuentaBancaria.GUI
 
         private void btnRecargar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                CargarLista();
-            }
-            catch (Exception exe)
-            {
-                MessageBox.Show(exe.Message);
-            }
+            CargarLista();
         }
 
         private void lstClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarClienteSeleccionado();
+            CargarCamposCliente();
         }
 
-        private void CargarClienteSeleccionado()
+        private void CargarCamposCliente()
         {
             if (lstClientes.DataSource != null)
             {
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
-                txtIdCliente.Text = clienteSeleccionado.Id;
+
+                txtIdCliente.Text = clienteSeleccionado.Id.ToString();
+                txtDni.Text = clienteSeleccionado.Dni.ToString();
                 txtNombre.Text = clienteSeleccionado.Nombre;
                 txtDomicilio.Text = clienteSeleccionado.Domicilio;
                 txtTelefono.Text = clienteSeleccionado.NumeroTel.ToString();
                 txtEmail.Text = clienteSeleccionado.Email;
             }
         }
-
         
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
             try
             {
                 ValidarCampos();
-                TransactionResult resultado = _clienteNegocio.Agregar(txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
+                TransactionResult resultado = _clienteNegocio.Agregar(int.Parse(txtDni.Text), txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
                 MessageBox.Show(resultado.ToString());
                 LimpiarCampos();
                 CargarLista();
@@ -97,20 +86,18 @@ namespace CuentaBancaria.GUI
             {
                 MessageBox.Show(exception.Message);
             }
-        }
-        
-
-        
+        }       
+                
         private void btnModificarCliente_Click(object sender, EventArgs e)
         {
             try
             {
                 Cliente clienteModificado = null;
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
-                if (clienteSeleccionado.Id != txtIdCliente.Text) { throw new Exception("No puede modificarse el ID"); }
+                if (clienteSeleccionado.Id.ToString() != txtIdCliente.Text) { throw new Exception("No puede modificarse el ID"); }
 
                 ValidarCampos();
-                clienteModificado = new Cliente(txtIdCliente.Text, txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
+                clienteModificado = new Cliente(int.Parse(txtIdCliente.Text), int.Parse(txtDni.Text), txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
                 //_clienteNegocio.ModificarCliente(clienteModificado, clienteSeleccionado);
                 MessageBox.Show("Cliente modificado:");
                 LimpiarCampos();
@@ -120,10 +107,8 @@ namespace CuentaBancaria.GUI
             {
                 MessageBox.Show(exception.Message);
             }
-        }
-        
-
-        
+        }       
+                
         private void btnEliminarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -140,26 +125,26 @@ namespace CuentaBancaria.GUI
             }
         }       
 
-
         private void ValidarCampos()
         {
             if (
+                txtDni.Text == string.Empty ||
                 txtNombre.Text == string.Empty ||
                 txtDomicilio.Text == string.Empty ||
                 txtTelefono.Text == string.Empty ||
                 txtEmail.Text == string.Empty
                 )
-
                 throw new Exception("Ningún campo puede estar vacío");
             else if (
-                !int.TryParse(txtTelefono.Text, out int tel)
+                !int.TryParse(txtDni.Text, out int dni) 
                 )
-                throw new Exception("Teléfono : Debe ingresar un número");
+                throw new Exception("DNI : Debe ingresar un dni");
         }
 
         private void LimpiarCampos()
         {
             txtIdCliente.Text = string.Empty;
+            txtDni.Text = string.Empty;
             txtNombre.Text = string.Empty;
             txtDomicilio.Text = string.Empty;
             txtTelefono.Text = string.Empty;

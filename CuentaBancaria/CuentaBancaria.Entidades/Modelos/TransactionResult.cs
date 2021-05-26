@@ -23,13 +23,10 @@ namespace CuentaBancaria.Entidades.Modelos
         public override string ToString()
         {
             if (this.IsOk == true)
-                return $"Cliente agregado - ID: {this.Id}";
+                return $"Operación exitosa - ID: {this.Id}";
 
             else
-                return ToString();
-            
-            //return "{ \"isOk\":false,\"id\":-1,\"error\":\"Error en el llamado al servicio\"}";
-            //return $"IsOk : {isOk} - Id: {this.Id} - Error: {error}";
+                return $"La operación no pudo realizarse - {this.Error}";
         }
     }
 }

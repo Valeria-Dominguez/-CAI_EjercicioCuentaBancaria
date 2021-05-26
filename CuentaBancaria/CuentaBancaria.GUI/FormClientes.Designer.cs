@@ -47,6 +47,8 @@ namespace CuentaBancaria.GUI
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.txtDni = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstClientes
@@ -54,7 +56,7 @@ namespace CuentaBancaria.GUI
             this.lstClientes.FormattingEnabled = true;
             this.lstClientes.Location = new System.Drawing.Point(12, 12);
             this.lstClientes.Name = "lstClientes";
-            this.lstClientes.Size = new System.Drawing.Size(523, 251);
+            this.lstClientes.Size = new System.Drawing.Size(523, 264);
             this.lstClientes.TabIndex = 0;
             this.lstClientes.SelectedIndexChanged += new System.EventHandler(this.lstClientes_SelectedIndexChanged);
             // 
@@ -70,7 +72,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnRecargar
             // 
-            this.btnRecargar.Location = new System.Drawing.Point(329, 269);
+            this.btnRecargar.Location = new System.Drawing.Point(460, 282);
             this.btnRecargar.Name = "btnRecargar";
             this.btnRecargar.Size = new System.Drawing.Size(75, 23);
             this.btnRecargar.TabIndex = 18;
@@ -107,7 +109,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(561, 75);
+            this.txtNombre.Location = new System.Drawing.Point(561, 116);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(404, 20);
             this.txtNombre.TabIndex = 7;
@@ -115,7 +117,7 @@ namespace CuentaBancaria.GUI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(924, 62);
+            this.label3.Location = new System.Drawing.Point(924, 101);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 6;
@@ -123,7 +125,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtDomicilio
             // 
-            this.txtDomicilio.Location = new System.Drawing.Point(561, 112);
+            this.txtDomicilio.Location = new System.Drawing.Point(561, 153);
             this.txtDomicilio.Name = "txtDomicilio";
             this.txtDomicilio.Size = new System.Drawing.Size(404, 20);
             this.txtDomicilio.TabIndex = 9;
@@ -131,7 +133,7 @@ namespace CuentaBancaria.GUI
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(916, 98);
+            this.label4.Location = new System.Drawing.Point(916, 139);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 8;
@@ -139,7 +141,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtTelefono
             // 
-            this.txtTelefono.Location = new System.Drawing.Point(561, 149);
+            this.txtTelefono.Location = new System.Drawing.Point(561, 190);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(404, 20);
             this.txtTelefono.TabIndex = 11;
@@ -147,7 +149,7 @@ namespace CuentaBancaria.GUI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(916, 135);
+            this.label5.Location = new System.Drawing.Point(916, 176);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(49, 13);
             this.label5.TabIndex = 10;
@@ -155,7 +157,7 @@ namespace CuentaBancaria.GUI
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(561, 186);
+            this.txtEmail.Location = new System.Drawing.Point(561, 227);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(404, 20);
             this.txtEmail.TabIndex = 13;
@@ -163,7 +165,7 @@ namespace CuentaBancaria.GUI
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(930, 172);
+            this.label6.Location = new System.Drawing.Point(930, 213);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(32, 13);
             this.label6.TabIndex = 12;
@@ -171,7 +173,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(890, 241);
+            this.btnModificar.Location = new System.Drawing.Point(890, 282);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 15;
@@ -181,7 +183,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(890, 269);
+            this.btnEliminar.Location = new System.Drawing.Point(890, 310);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
             this.btnEliminar.TabIndex = 16;
@@ -191,7 +193,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(890, 212);
+            this.btnAgregar.Location = new System.Drawing.Point(890, 253);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 14;
@@ -201,7 +203,7 @@ namespace CuentaBancaria.GUI
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(561, 212);
+            this.btnLimpiar.Location = new System.Drawing.Point(561, 253);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 19;
@@ -209,11 +211,29 @@ namespace CuentaBancaria.GUI
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click_1);
             // 
+            // txtDni
+            // 
+            this.txtDni.Location = new System.Drawing.Point(561, 78);
+            this.txtDni.Name = "txtDni";
+            this.txtDni.Size = new System.Drawing.Size(404, 20);
+            this.txtDni.TabIndex = 21;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(939, 63);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(26, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "DNI";
+            // 
             // FormClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 450);
+            this.Controls.Add(this.txtDni);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnEliminar);
@@ -260,5 +280,7 @@ namespace CuentaBancaria.GUI
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.TextBox txtDni;
+        private System.Windows.Forms.Label label7;
     }
 }

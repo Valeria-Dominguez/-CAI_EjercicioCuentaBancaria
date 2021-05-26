@@ -24,7 +24,7 @@ namespace CuentaBancaria.Negocio
         {
             List<Cliente> todos = _clienteMapper.TraerTodos();
             _listaClientes = FiltrarClientes(todos);
-            if (_listaClientes.Count == 0) throw new Exception("Clientes inexistentes");
+            if (_listaClientes.Count == 0) throw new Exception("No existen clientes");
             return _listaClientes;
         }
 
@@ -33,32 +33,33 @@ namespace CuentaBancaria.Negocio
             List<Cliente> clientesFiltrados = new List<Cliente>();
             foreach (Cliente cliente in todos)
             {
-                if (ValidarCampos(cliente) == true)
+                if (ValidarParametros(cliente) == true)
                     clientesFiltrados.Add(cliente);
             }
             return clientesFiltrados;
         }
 
-        private bool ValidarCampos(Cliente cliente)
+        private bool ValidarParametros(Cliente cliente)
         {
-            bool valido = true;
+            bool valido = true;            
             if (
-                string.IsNullOrEmpty(cliente.Nombre) ||
-                string.IsNullOrEmpty(cliente.Domicilio) ||
-                string.IsNullOrEmpty(cliente.NumeroTel) ||
-                string.IsNullOrEmpty(cliente.Email) 
+                cliente.Id == 0                  
                 )
-                valido = false;
-            if (
-                cliente.NumeroTel!=null && !int.TryParse(cliente.NumeroTel.ToString(), out int telefono)
-                    )
-                valido = false;
+                valido = false;               
+
+            if (string.IsNullOrEmpty(cliente.Nombre)) cliente.Nombre = string.Empty;
+            if (string.IsNullOrEmpty(cliente.Domicilio)) cliente.Domicilio = string.Empty;
+            if (string.IsNullOrEmpty(cliente.NumeroTel)) cliente.NumeroTel = string.Empty;
+            if (string.IsNullOrEmpty(cliente.Email)) cliente.Email = string.Empty;
+
             return valido;
         }
 
-        public TransactionResult Agregar(string nombre, string domicilio, string telefono, string email)
+        public TransactionResult Agregar(int dni, string nombre, string domicilio, string telefono, string email)
         {
+            BuscarCliente(dni);   
             Cliente cliente = new Cliente();
+            cliente.Dni = dni;
             cliente.Nombre = nombre;
             cliente.Domicilio = domicilio;
             cliente.NumeroTel = telefono;
@@ -67,20 +68,14 @@ namespace CuentaBancaria.Negocio
             return c;
         }
 
-
-        /*
-        public void GuardarCliente(Cliente clienteAgre)
+        private void BuscarCliente(int dni)
         {
-            foreach (Cliente cliente in this._clientes)
+            foreach (Cliente cliente in Traer())
             {
-                if (cliente.Equals(clienteAgre))
-                {
+                if (cliente.Dni==dni)
                     throw new Exception("El cliente ya existe");
-                }
             }
-            this._clientes.Add(clienteAgre);
         }
-        */
 
 
         /*
@@ -93,7 +88,6 @@ namespace CuentaBancaria.Negocio
         }
         */
 
-
         /*
         public void EliminarCliente(Cliente cliente)
         {
@@ -104,27 +98,6 @@ namespace CuentaBancaria.Negocio
             this._clientes.Remove(cliente);
         }
         */
-
-
-        /*
-        public Cliente BuscarCliente(string idCliente)
-        {
-            Cliente clienteEncontrado = null;
-            foreach (Cliente cliente in this._listaClientes)
-            {
-                if (cliente.Id == idCliente)
-                {
-                    clienteEncontrado = cliente;
-                }
-            }
-            if (clienteEncontrado == null)
-            {
-                throw new Exception("El cliente no existe\n");
-            }
-            return clienteEncontrado;
-        }
-        */
-        
 
     }
 }

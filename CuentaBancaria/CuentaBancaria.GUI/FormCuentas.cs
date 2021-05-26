@@ -8,68 +8,100 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuentaBancaria.Entidades;
+using CuentaBancaria.Entidades.Modelos;
 using CuentaBancaria.Negocio;
 
 namespace CuentaBancaria.GUI
 {
     public partial class FormCuentas : Form
     {
-        private ClienteNegocio _clienteNegocio;
-        private Cliente _clienteSeleccionado;
+        private CuentaNegocio _cuentaNegocio;
+        private Cliente _clienteSeleccionado; 
 
         public FormCuentas(Cliente cliente)
         {
-            _clienteNegocio = new ClienteNegocio();
+            _cuentaNegocio = new CuentaNegocio();
             _clienteSeleccionado = cliente;
             InitializeComponent();
         }
-
-        
+                
         private void FormCuentas_Load(object sender, EventArgs e)
         {
-            lbIdCliente.Text = $"Cliente: {_clienteSeleccionado.Nombre}";
-            CargarLista();
-            txtSaldo.Enabled = false;
-            chkEstadoActiva.Enabled = false;
+            if (_clienteSeleccionado != null)
+            {
+                lbIdCliente.Text = $"{_clienteSeleccionado.Nombre} - {_clienteSeleccionado.Id}";
+                CargarLista();
+                LimpiarCampos();
+            }
+        }
+
+        private void CargarLista()
+        {
+            try
+            {
+                lstCuentas.DataSource = null;
+                lstCuentas.DataSource = _cuentaNegocio.TraerCuentasCliente(_clienteSeleccionado.Id);
+                //lstCuentas.DataSource = _cuentaNegocio.Traer();
+            }
+            catch (Exception exe)
+            {
+                MessageBox.Show(exe.Message);
+            }
+        }
+
+        private void LimpiarCampos()
+        {
+            txtNumCuenta.Text = string.Empty;
+            txtDescripcion.Text = string.Empty;
+            chkEstadoActiva.Checked = false;
+            txtSaldo.Text = string.Empty;
         }
 
         private void lstCuentas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CambiarCuentaSeleccionada();
+            CargarCamposCuenta();
         }
 
-        private void CambiarCuentaSeleccionada()
+        private void CargarCamposCuenta()
         {
             if (lstCuentas.DataSource != null)
             {
-                DeshabilitarEdicion();
                 Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
                 txtNumCuenta.Text = cuentaSeleccionada.Numero.ToString();
-                txtTipo.Text = cuentaSeleccionada.Tipo;
-                txtMoneda.Text = cuentaSeleccionada.Moneda;
+                txtDescripcion.Text = cuentaSeleccionada.Tipo;
                 if (cuentaSeleccionada.Activa == true) { chkEstadoActiva.Checked = true; }
                 txtSaldo.Text = cuentaSeleccionada.Saldo.ToString();
+
+                DeshabilitarEdicion();
             }
         }
 
         private void DeshabilitarEdicion()
         {
-            txtNumCuenta.Enabled = false;
-            txtTipo.Enabled = false;
-            txtMoneda.Enabled = false;
+            txtDescripcion.Enabled = false;
+        }
+
+        private void btnAltaCuenta_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+            HabilitarEdicion();
+        }
+
+        private void HabilitarEdicion()
+        {
+            txtDescripcion.Enabled = true;
         }
 
         private void btnAgregarCuenta_Click(object sender, EventArgs e)
         {
             try
             {
-                Cuenta cuenta = null;
                 ValidarCampos();
-                cuenta = new Cuenta(int.Parse(txtNumCuenta.Text), txtTipo.Text, txtMoneda.Text, false, 0);
-                _clienteSeleccionado.GuardarCuenta(cuenta);
-                MessageBox.Show($"Cuenta creada");
-                Limpiar();
+                TransactionResult resultado =  _cuentaNegocio.Agregar(_clienteSeleccionado.Id, txtDescripcion.Text);
+                MessageBox.Show(resultado.ToString());
                 CargarLista();
+                LimpiarCampos();
+                DeshabilitarEdicion();
             }
             catch (Exception excepcion)
             {
@@ -77,84 +109,13 @@ namespace CuentaBancaria.GUI
             }
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
-                if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
-                _clienteSeleccionado.EliminarCuenta(cuentaSeleccionada);
-                MessageBox.Show($"Cuenta eliminada");
-                Limpiar();
-                CargarLista();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
-
         private void ValidarCampos()
         {
             if (
-                txtTipo.Text == string.Empty ||
-                txtMoneda.Text == string.Empty
+                txtDescripcion.Text == string.Empty  
                 )
-            {
                 throw new Exception("Ningún campo puede estar vacío");
-            }
-            else if (
-                !uint.TryParse(txtNumCuenta.Text, out uint numCuenta)
-                )
-            {
-                throw new Exception("Debe ingresar un número");
-            }
         }
-        private void Limpiar()
-        {
-            txtNumCuenta.Text = string.Empty;
-            txtTipo.Text = string.Empty;
-            txtMoneda.Text = string.Empty;
-            chkEstadoActiva.Checked = false;
-            txtSaldo.Text = string.Empty;
-
-            HabilitarEdicion();
-        }
-
-        private void HabilitarEdicion()
-        {
-            txtNumCuenta.Enabled = true;
-            txtTipo.Enabled = true;
-            txtMoneda.Enabled = true;
-        }
-
-        private void CargarLista()
-        {
-            LimpiarLista();
-            lstCuentas.DataSource = _clienteSeleccionado.Cuentas;
-        }
-
-        private void btnActualizar_Click_1(object sender, EventArgs e)
-        {
-
-            CargarLista();
-        }
-
-        private void LimpiarLista()
-        {
-            lstCuentas.DataSource = null;
-        }
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Owner.Show();
-            this.Hide();
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            Limpiar();
-        }
-
 
         private void btnExtraer_Click(object sender, EventArgs e)
         {
@@ -173,7 +134,7 @@ namespace CuentaBancaria.GUI
                 if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
                 cuentaSeleccionada.ExtraerODepositarSaldo();
                 MessageBox.Show($"Transacción exitosa");
-                Limpiar();
+                LimpiarCampos();
                 CargarLista();
             }
             catch (Exception exception)
@@ -192,21 +153,43 @@ namespace CuentaBancaria.GUI
             bool activa = true;
             ActivarODesactivarCuenta(activa);
         }
-        private void ActivarODesactivarCuenta (bool activa)
+        private void ActivarODesactivarCuenta(bool activa)
         {
             try
             {
                 Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
                 if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
-                _clienteSeleccionado.CambiarEstadoCuenta(cuentaSeleccionada, activa);
+                //_clienteSeleccionado.CambiarEstadoCuenta(cuentaSeleccionada, activa);
                 MessageBox.Show($"Modificación exitosa");
-                Limpiar();
+                LimpiarCampos();
                 CargarLista();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
+        }
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
+                if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
+                //_clienteSeleccionado.EliminarCuenta(cuentaSeleccionada);
+                MessageBox.Show($"Cuenta eliminada");
+                CargarLista();
+                LimpiarCampos();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Owner.Show();
+            this.Hide();
         }
         
     }

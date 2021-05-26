@@ -11,55 +11,22 @@ namespace CuentaBancaria.Entidades
 
     public class Cliente:Persona
     {
-        List<Cuenta> _cuentas;
+        int _id;
 
-        public List<Cuenta> Cuentas { get => _cuentas; set => _cuentas = value; }
+        [DataMember(Name = "id")]
+        public int Id { get => _id; set => _id = value; }
 
-        public Cliente(string id, string nombre, string domicilio, string numeroTel, string email) : base(id, nombre, domicilio, numeroTel, email)
+        public Cliente(int id, int dni, string nombre, string domicilio, string numeroTel, string email) : base(dni, nombre, domicilio, numeroTel, email)
         {
-            this._cuentas = new List<Cuenta>();
+            this._id = id;
         }
+
         public Cliente()
         {
         }
-
-
-        public override bool Equals(object obj)
+        public override string ToString()
         {
-            if (obj == null)
-            {
-                return false;
-            }
-            else if (!(obj is Cliente))
-            {
-                return false;
-            }
-            else
-            {
-                Cliente cliente = (Cliente)obj;
-                return cliente.Id == this.Id;
-            }
+            return $" Id: {this._id}\n Nombre y apellido: {Nombre}\n DNI: {Dni}\n Domicilio: {Domicilio}\n Teléfono: {this.NumeroTel}\n Email: {Email}\n\n";
         }
-
-        public void GuardarCuenta(Cuenta cuenta)
-        {
-            this._cuentas.Add(cuenta);
-        }
-
-        public void EliminarCuenta(Cuenta cuenta)
-        {
-            if (cuenta.Saldo!=0)
-            {
-                throw new Exception("No puede darse de baja una cuenta con saldo");
-            }
-            this._cuentas.Remove(cuenta);
-        }
-
-        public void CambiarEstadoCuenta(Cuenta cuenta, bool nuevoEstado)
-        {
-            cuenta.Activa = nuevoEstado;
-        }
-
-
     }
 }

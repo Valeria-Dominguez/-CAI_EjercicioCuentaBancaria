@@ -40,5 +40,19 @@ namespace CuentaBancaria.Datos
             return nCuenta;
         }
 
+        public TransactionResult Eliminar(Cuenta cuenta)
+        {
+            NameValueCollection nCuenta = ReverseMap(cuenta);
+            string json = WebHelper.Delete("cuenta", nCuenta);
+            TransactionResult resultado = JsonConvert.DeserializeObject<TransactionResult>(json);
+            return resultado;
+        }
+        public TransactionResult Modificar(Cuenta cuenta)
+        {
+            NameValueCollection nCuenta = ReverseMap(cuenta);
+            string json = WebHelper.Put("cuenta", nCuenta);
+            TransactionResult resultado = JsonConvert.DeserializeObject<TransactionResult>(json);
+            return resultado;
+        }
     }
 }

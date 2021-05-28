@@ -12,33 +12,33 @@ namespace CuentaBancaria.Negocio
     public class CuentaNegocio
     {
         private List<Cuenta> _listaCuentas;
-        private List<Cuenta> _cuentasFiltradas;
+        private List<Cuenta> _cuentasValidadas;
         private CuentaMapper _cuentaMapper;
 
         public CuentaNegocio()
         {
             _listaCuentas = new List<Cuenta>();
-            _cuentasFiltradas = new List<Cuenta>();
+            _cuentasValidadas = new List<Cuenta>();
             _cuentaMapper = new CuentaMapper();
         }
 
         public List<Cuenta> Traer()
         {
             _listaCuentas = _cuentaMapper.TraerTodos();
-            _cuentasFiltradas = FiltrarCuentas(_listaCuentas);
-            if (_cuentasFiltradas.Count == 0) throw new Exception("No existen cuentas");
-            return _cuentasFiltradas;
+            _cuentasValidadas = ValidarCuentas(_listaCuentas);
+            if (_cuentasValidadas.Count == 0) throw new Exception("No existen cuentas");
+            return _cuentasValidadas;
         }
 
-        private List<Cuenta> FiltrarCuentas(List<Cuenta> todas)
+        private List<Cuenta> ValidarCuentas(List<Cuenta> todas)
         {
-            List<Cuenta> cuentasFiltradas = new List<Cuenta>();
+            List<Cuenta> cuentasValidadas = new List<Cuenta>();
             foreach (Cuenta cuenta in todas)
             {
                 if (ValidarParametros(cuenta) == true )
-                    cuentasFiltradas.Add(cuenta);
+                    cuentasValidadas.Add(cuenta);
             }
-            return cuentasFiltradas;
+            return cuentasValidadas;
         }
 
         private bool ValidarParametros(Cuenta cuenta)
@@ -59,13 +59,12 @@ namespace CuentaBancaria.Negocio
         public List<Cuenta> TraerCuentasCliente (int idCliente)
         {
             List<Cuenta> cuentasCliente = new List<Cuenta>();
-            _cuentasFiltradas = Traer();
-            foreach (Cuenta cuenta in _cuentasFiltradas)
+            _cuentasValidadas = Traer();
+            foreach (Cuenta cuenta in _cuentasValidadas)
             {
                 if (cuenta.IdCliente == idCliente)
                     cuentasCliente.Add(cuenta);
             }
-            if (cuentasCliente.Count == 0) throw new Exception("No existen cuentas");
             return cuentasCliente;
         }
         

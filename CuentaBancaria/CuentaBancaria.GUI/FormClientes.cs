@@ -92,14 +92,12 @@ namespace CuentaBancaria.GUI
         {
             try
             {
-                Cliente clienteModificado = null;
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
                 if (clienteSeleccionado.Id.ToString() != txtIdCliente.Text) { throw new Exception("No puede modificarse el ID"); }
 
                 ValidarCampos();
-                clienteModificado = new Cliente(int.Parse(txtIdCliente.Text), int.Parse(txtDni.Text), txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
-                //_clienteNegocio.ModificarCliente(clienteModificado, clienteSeleccionado);
-                MessageBox.Show("Cliente modificado:");
+                _clienteNegocio.Modificar(int.Parse(txtIdCliente.Text), int.Parse(txtDni.Text), txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
+                MessageBox.Show("Cliente modificado");
                 LimpiarCampos();
                 CargarLista();
             }
@@ -114,7 +112,7 @@ namespace CuentaBancaria.GUI
             try
             {
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
-                //_clienteNegocio.EliminarCliente(clienteSeleccionado);
+                _clienteNegocio.Eliminar(clienteSeleccionado.Id);
                 MessageBox.Show($"Cliente eliminado");
                 LimpiarCampos();
                 CargarLista();

@@ -36,12 +36,29 @@ namespace CuentaBancaria.Datos
         private NameValueCollection ReverseMap (Cliente cliente)
         {
             NameValueCollection n = new NameValueCollection();
+            n.Add("id", cliente.Id.ToString());
             n.Add("dni", cliente.Dni.ToString());
             n.Add("nombre", cliente.Nombre);
             n.Add("direccion", cliente.Domicilio);
-            n.Add("telefono", cliente.NumeroTel.ToString());
+            n.Add("telefono", cliente.NumeroTel);
             n.Add("email", cliente.Email);
             return n;
+        }
+
+        public TransactionResult Eliminar(Cliente cliente)
+        {
+            NameValueCollection obj = ReverseMap(cliente);
+            string json = WebHelper.Delete("cliente", obj);
+            TransactionResult lst = JsonConvert.DeserializeObject<TransactionResult>(json);
+            return lst;
+        }
+
+        public TransactionResult Modificar(Cliente cliente)
+        {
+            NameValueCollection obj = ReverseMap(cliente);
+            string json = WebHelper.Put("cliente", obj);
+            TransactionResult lst = JsonConvert.DeserializeObject<TransactionResult>(json);
+            return lst;
         }
     }
 }

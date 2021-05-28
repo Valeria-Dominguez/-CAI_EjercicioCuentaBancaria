@@ -12,31 +12,33 @@ namespace CuentaBancaria.Negocio
     public class ClienteNegocio
     {
         private List<Cliente> _listaClientes;
+        private List<Cliente> _clientesValidados;
         private ClienteMapper _clienteMapper;
 
         public ClienteNegocio()
         {
             _listaClientes = new List<Cliente>();
+            _clientesValidados = new List<Cliente>();
             _clienteMapper = new ClienteMapper();
         }
 
         public List<Cliente> Traer()
         {
-            List<Cliente> todos = _clienteMapper.TraerTodos();
-            _listaClientes = FiltrarClientes(todos);
-            if (_listaClientes.Count == 0) throw new Exception("No existen clientes");
-            return _listaClientes;
+            _listaClientes = _clienteMapper.TraerTodos();
+            _clientesValidados = ValidarClientes(_listaClientes);
+            if (_clientesValidados.Count == 0) throw new Exception("No existen clientes");
+            return _clientesValidados;
         }
 
-        private List<Cliente> FiltrarClientes (List<Cliente> todos)
+        private List<Cliente> ValidarClientes (List<Cliente> todos)
         {
-            List<Cliente> clientesFiltrados = new List<Cliente>();
+            List<Cliente> clientesValidados = new List<Cliente>();
             foreach (Cliente cliente in todos)
             {
                 if (ValidarParametros(cliente) == true)
-                    clientesFiltrados.Add(cliente);
+                    clientesValidados.Add(cliente);
             }
-            return clientesFiltrados;
+            return clientesValidados;
         }
 
         private bool ValidarParametros(Cliente cliente)
@@ -57,7 +59,7 @@ namespace CuentaBancaria.Negocio
 
         public TransactionResult Agregar(int dni, string nombre, string domicilio, string telefono, string email)
         {
-            BuscarCliente(dni);   
+            //BuscarCliente(dni);   
             Cliente cliente = new Cliente();
             cliente.Dni = dni;
             cliente.Nombre = nombre;
@@ -77,27 +79,35 @@ namespace CuentaBancaria.Negocio
             }
         }
 
-
-        /*
-        public void ModificarCliente(Cliente clienteModificado, Cliente clienteAModificar)
+        public TransactionResult Modificar(int id, int dni, string nombre, string domicilio, string telefono, string email)
         {
-            clienteAModificar.Nombre = clienteModificado.Nombre;
-            clienteAModificar.Domicilio = clienteModificado.Domicilio;
-            clienteAModificar.NumeroTel = clienteModificado.NumeroTel;
-            clienteAModificar.Email = clienteModificado.Email;
+            Cliente cliente = new Cliente();
+            cliente.Id = id;
+            cliente.Dni = dni;
+            cliente.Nombre = nombre;
+            cliente.Domicilio = domicilio;
+            cliente.NumeroTel = telefono;
+            cliente.Email = email;
+            TransactionResult c = _clienteMapper.Modificar(cliente);
+            return c;
         }
-        */
 
-        /*
-        public void EliminarCliente(Cliente cliente)
+        public TransactionResult Eliminar(int id)
         {
-            if (cliente.Cuentas.Count != 0)
-            {
-                throw new Exception("No puede eliminarse, existen cuentas activas");
-            }
-            this._clientes.Remove(cliente);
+            BuscarCuentasCliente(id);
+            Cliente cliente = new Cliente();
+            cliente.Id = id;
+            TransactionResult c = _clienteMapper.Eliminar(cliente);
+            return c;
         }
-        */
+
+        private void BuscarCuentasCliente(int id)
+        {
+            CuentaNegocio cuentaNegocio = new CuentaNegocio();
+            List<Cuenta> cuentasClientes = cuentaNegocio.TraerCuentasCliente(id);
+            if (cuentasClientes.Count != 0)
+                throw new Exception("El cliente no puede eliminarse, posee cuentas");
+        }
 
     }
 }

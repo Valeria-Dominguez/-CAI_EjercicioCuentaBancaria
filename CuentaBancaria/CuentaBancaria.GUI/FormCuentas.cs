@@ -133,6 +133,7 @@ namespace CuentaBancaria.GUI
                 Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
                 if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
                 cuentaSeleccionada.ExtraerODepositarSaldo();
+                _cuentaNegocio.ModificarSaldo(cuentaSeleccionada.Id, cuentaSeleccionada.Saldo);
                 MessageBox.Show($"Transacción exitosa");
                 LimpiarCampos();
                 CargarLista();
@@ -159,7 +160,7 @@ namespace CuentaBancaria.GUI
             {
                 Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
                 if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
-                //_clienteSeleccionado.CambiarEstadoCuenta(cuentaSeleccionada, activa);
+                _cuentaNegocio.ModificarEstado(cuentaSeleccionada.Id, activa);
                 MessageBox.Show($"Modificación exitosa");
                 LimpiarCampos();
                 CargarLista();
@@ -169,13 +170,15 @@ namespace CuentaBancaria.GUI
                 MessageBox.Show(exception.Message);
             }
         }
+
+        //visible: false
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             try
             {
                 Cuenta cuentaSeleccionada = (Cuenta)lstCuentas.SelectedValue;
                 if (cuentaSeleccionada == null) { throw new Exception("Debe seleccionar una cuenta"); }
-                //_clienteSeleccionado.EliminarCuenta(cuentaSeleccionada);
+                _cuentaNegocio.Eliminar(cuentaSeleccionada.Id);
                 MessageBox.Show($"Cuenta eliminada");
                 CargarLista();
                 LimpiarCampos();

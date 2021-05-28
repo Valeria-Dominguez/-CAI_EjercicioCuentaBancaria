@@ -141,6 +141,7 @@ namespace CuentaBancaria.GUI
             this.btnEliminar.TabIndex = 14;
             this.btnEliminar.Text = "Baja";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Visible = false;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnAltaCuenta

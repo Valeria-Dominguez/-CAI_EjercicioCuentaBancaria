@@ -78,6 +78,31 @@ namespace CuentaBancaria.Negocio
             return resultado;
         }
 
+        public TransactionResult ModificarEstado(int id, bool activo)
+        {
+            Cuenta cuenta = new Cuenta();
+            cuenta.Id = id;
+            cuenta.Activa = activo;
+            TransactionResult resultado = _cuentaMapper.Modificar(cuenta);
+            return resultado;
+        }
+
+        public TransactionResult ModificarSaldo(int id, double saldo)
+        {
+            Cuenta cuenta = new Cuenta();
+            cuenta.Id = id;
+            cuenta.Saldo = saldo;
+            TransactionResult resultado = _cuentaMapper.Modificar(cuenta);
+            return resultado;
+        }
+
+        public TransactionResult Eliminar(int id)
+        {
+            Cuenta cuenta = new Cuenta();
+            cuenta.Id = id;
+            TransactionResult resultado = _cuentaMapper.Eliminar(cuenta);
+            return resultado;
+        }
 
     }
 }

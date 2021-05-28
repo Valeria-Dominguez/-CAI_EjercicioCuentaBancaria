@@ -35,8 +35,11 @@ namespace CuentaBancaria.Datos
         private NameValueCollection ReverseMap (Cuenta cuenta)
         {
             NameValueCollection nCuenta = new NameValueCollection();
+            nCuenta.Add("id", cuenta.Id.ToString());
             nCuenta.Add("idCliente", cuenta.IdCliente.ToString());
             nCuenta.Add("descripcion", cuenta.Tipo);
+            nCuenta.Add("activo", cuenta.Activa.ToString());
+            nCuenta.Add("saldo", cuenta.Saldo.ToString());
             return nCuenta;
         }
 

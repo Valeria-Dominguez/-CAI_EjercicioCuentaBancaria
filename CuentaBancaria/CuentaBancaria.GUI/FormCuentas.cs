@@ -17,7 +17,6 @@ namespace CuentaBancaria.GUI
     {
         private CuentaNegocio _cuentaNegocio;
         private ClienteNegocio _clienteNegocio;
-        private Cliente _clienteSeleccionado; 
 
         public FormCuentas()
         {
@@ -46,30 +45,30 @@ namespace CuentaBancaria.GUI
 
         private void cmbClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbClientes.DataSource != null)
-            {
-                CargarCamposCuenta();
-            }
+            CargarCamposCuenta();
         }
 
         private void CargarCamposCuenta()
         {
-            Cuenta cuenta = ((Cliente)cmbClientes.SelectedValue).Cuenta;
-            if (cuenta!= null)
+            if (cmbClientes.DataSource != null)
             {
-                txtNumCuenta.Text = cuenta.Numero.ToString();
-                txtDescripcion.Text = cuenta.Tipo;
-                chkEstadoActiva.Checked = cuenta.Activa;
-                txtSaldo.Text = cuenta.Saldo.ToString("0.00");
-                txtFechaApertura.Text = cuenta.FechaApertura.ToString("yyyy-MM-dd");
-                txtDescripcion.Enabled = false;
-                txtSaldo.Enabled = true;
-            }
-            else
-            {
-                LimpiarCampos();
-                txtDescripcion.Enabled = true;
-                txtSaldo.Enabled = false;
+                Cuenta cuenta = ((Cliente)cmbClientes.SelectedValue).Cuenta;
+                if (cuenta != null)
+                {
+                    txtNumCuenta.Text = cuenta.Numero.ToString();
+                    txtDescripcion.Text = cuenta.Tipo;
+                    chkEstadoActiva.Checked = cuenta.Activa;
+                    txtSaldo.Text = cuenta.Saldo.ToString("0.00");
+                    txtFechaApertura.Text = cuenta.FechaApertura.ToString("yyyy-MM-dd");
+                    txtDescripcion.Enabled = false;
+                    txtSaldo.Enabled = true;
+                }
+                else
+                {
+                    LimpiarCampos();
+                    txtDescripcion.Enabled = true;
+                    txtSaldo.Enabled = false;
+                }
             }
         }
 
@@ -140,7 +139,7 @@ namespace CuentaBancaria.GUI
         //Btn activar / desactivar: visible = false
         //No se puede modificar estado
 
-        /*
+        
         private void btnDesactivar_Click(object sender, EventArgs e)
         {
             bool activa = false;
@@ -171,7 +170,7 @@ namespace CuentaBancaria.GUI
                 MessageBox.Show(exception.Message);
             }
         }
-        */
+        
 
     }
 }

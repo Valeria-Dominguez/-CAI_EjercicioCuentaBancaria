@@ -48,11 +48,6 @@ namespace CuentaBancaria.GUI
             this.Hide();
         }
 
-        private void btnRecargar_Click(object sender, EventArgs e)
-        {
-            CargarLista();
-        }
-
         private void lstClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarCamposCliente();
@@ -83,7 +78,6 @@ namespace CuentaBancaria.GUI
                 ValidarCampos();
                 TransactionResult resultado = _clienteNegocio.Agregar(int.Parse(txtDni.Text), txtNombre.Text, txtApellido.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text, DateTime.Parse(txtFechaNacim.Text + " 00:00:00"));
                 MessageBox.Show(resultado.ToString());
-                LimpiarCampos();
                 CargarLista();
             }
             catch (Exception exception)
@@ -97,13 +91,11 @@ namespace CuentaBancaria.GUI
             try
             {
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
-                if (clienteSeleccionado.Id.ToString() != txtIdCliente.Text) { throw new Exception("No puede modificarse el ID"); }
 
                 ValidarCampos();
-                _clienteNegocio.Modificar(int.Parse(txtIdCliente.Text), int.Parse(txtDni.Text), txtNombre.Text, txtApellido.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text, DateTime.Parse(txtFechaNacim.Text + " 00:00:00"));
+                TransactionResult resultado = _clienteNegocio.Modificar(clienteSeleccionado.Id, int.Parse(txtDni.Text), txtNombre.Text, txtApellido.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text, DateTime.Parse(txtFechaNacim.Text + " 00:00:00"));
                 
-                MessageBox.Show("Cliente modificado");
-                LimpiarCampos();
+                MessageBox.Show(resultado.ToString());
                 CargarLista();
             }
             catch (Exception exception)
@@ -117,9 +109,8 @@ namespace CuentaBancaria.GUI
             try
             {
                 Cliente clienteSeleccionado = (Cliente)lstClientes.SelectedValue;
-                _clienteNegocio.Eliminar(clienteSeleccionado.Id);
-                MessageBox.Show($"Cliente eliminado");
-                LimpiarCampos();
+                TransactionResult resultado = _clienteNegocio.Eliminar(clienteSeleccionado);
+                MessageBox.Show(resultado.ToString());
                 CargarLista();
             }
             catch (Exception exception)

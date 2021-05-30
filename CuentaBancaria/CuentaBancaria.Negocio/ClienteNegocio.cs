@@ -26,36 +26,29 @@ namespace CuentaBancaria.Negocio
 
         public List<Cliente> Traer()
         {
-            List<Cliente> clientes = _clienteMapper.TraerTodos();
-            _listaClientes = ValidarClientes(clientes);
-            _listaClientes = AgregarCuentas(_listaClientes);
+            _listaCuentas = _cuentaMapper.TraerTodos();
+
+            List<Cliente> todos = _clienteMapper.TraerTodos();
+            foreach (Cliente cliente in todos)
+            {
+                if (ValidarParametros(cliente) == true)
+                    _listaClientes.Add(cliente);
+
+                AgregarCuentaCliente(cliente);
+            }
+
             if (_listaClientes.Count == 0) throw new Exception("No existen clientes");
             return _listaClientes;
         }
 
-        private List<Cliente> AgregarCuentas(List<Cliente> listaClientes)
+        private Cliente AgregarCuentaCliente(Cliente cliente)
         {
-            _listaCuentas = _cuentaMapper.TraerTodos();
-            foreach (Cliente cliente in listaClientes)
+            foreach (Cuenta cuenta in _listaCuentas)
             {
-                foreach (Cuenta cuenta in _listaCuentas)
-                {
-                    if (cliente.Id == cuenta.IdCliente)
-                        cliente.Cuenta = cuenta;
-                }
+                if (cliente.Id == cuenta.IdCliente)
+                    cliente.Cuenta = cuenta;
             }
-            return listaClientes;
-        }
-
-        private List<Cliente> ValidarClientes (List<Cliente> todos)
-        {
-            List<Cliente> clientesValidados = new List<Cliente>();
-            foreach (Cliente cliente in todos)
-            {
-                if (ValidarParametros(cliente) == true)
-                    clientesValidados.Add(cliente);
-            }
-            return clientesValidados;
+            return cliente;
         }
 
         private bool ValidarParametros(Cliente cliente)
@@ -116,11 +109,9 @@ namespace CuentaBancaria.Negocio
             return c;
         }
 
-        public TransactionResult Eliminar(int id)
+        public TransactionResult Eliminar(Cliente cliente)
         {
-            BuscarCuentasCliente(id);
-            Cliente cliente = new Cliente();
-            cliente.Id = id;
+            BuscarCuentasCliente(cliente.Id);
             TransactionResult c = _clienteMapper.Eliminar(cliente);
             return c;
         }

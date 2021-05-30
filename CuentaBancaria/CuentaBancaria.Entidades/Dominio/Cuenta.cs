@@ -55,16 +55,9 @@ namespace CuentaBancaria.Entidades
 
         }
 
-
         public override string ToString()
         {
             return $"Id: {this.Id} - Tipo: {this._tipo} - N° {this.Numero} / Id Cliente: {this._idCliente}\n";
-        }
-
-        public void ExtraerODepositarSaldo()
-        {
-            double montoDepOExtr = this._saldo;
-            this._saldo = _saldo - montoDepOExtr;
         }
     }
 }

@@ -18,10 +18,22 @@ namespace CuentaBancaria.Datos
             List<Cuenta> resultado = MapList(json);
             return resultado;
         }
+        public Cuenta TraerCuentaCliente(int idCliente)
+        {
+            string json = WebHelper.Get("cuenta/" + idCliente.ToString());
+            Cuenta resultado = Map(json);
+            return resultado;
+        }
         private List<Cuenta> MapList(string json)
         {
             List<Cuenta> cuentas = JsonConvert.DeserializeObject<List<Cuenta>>(json);
             return cuentas;
+        }
+
+        private Cuenta Map(string json)
+        {
+            Cuenta cuenta = JsonConvert.DeserializeObject<Cuenta>(json);
+            return cuenta;
         }
 
         public TransactionResult Insertar (Cuenta cuenta)
@@ -40,22 +52,9 @@ namespace CuentaBancaria.Datos
             nCuenta.Add("descripcion", cuenta.Tipo);
             nCuenta.Add("activo", cuenta.Activa.ToString());
             nCuenta.Add("saldo", cuenta.Saldo.ToString());
+            nCuenta.Add("fechaApertura", cuenta.FechaApertura.ToString("yyyy-MM-dd"));
             return nCuenta;
         }
 
-        public TransactionResult Eliminar(Cuenta cuenta)
-        {
-            NameValueCollection nCuenta = ReverseMap(cuenta);
-            string json = WebHelper.Delete("cuenta", nCuenta);
-            TransactionResult resultado = JsonConvert.DeserializeObject<TransactionResult>(json);
-            return resultado;
-        }
-        public TransactionResult Modificar(Cuenta cuenta)
-        {
-            NameValueCollection nCuenta = ReverseMap(cuenta);
-            string json = WebHelper.Put("cuenta", nCuenta);
-            TransactionResult resultado = JsonConvert.DeserializeObject<TransactionResult>(json);
-            return resultado;
-        }
     }
 }

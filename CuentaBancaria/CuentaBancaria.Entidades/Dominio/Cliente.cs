@@ -12,13 +12,21 @@ namespace CuentaBancaria.Entidades
     public class Cliente:Persona
     {
         int _id;
+        Cuenta _cuenta;
+        string _usuario;
 
         [DataMember(Name = "id")]
-        public int Id { get => _id; set => _id = value; }
+        public int Id { get => _id; set => _id = value; }   
 
-        public Cliente(int id, int dni, string nombre, string domicilio, string numeroTel, string email) : base(dni, nombre, domicilio, numeroTel, email)
+        public Cuenta Cuenta { get => _cuenta; set => _cuenta = value; }
+
+        [DataMember(Name = "usuario")]
+        public string Usuario { get => _usuario; set => _usuario = value; }
+
+        public Cliente(int id, Cuenta cuenta, string usuario, int dni, string nombre, string apellido, string domicilio, string numeroTel, string email, DateTime fechaNacimiento) : base(dni, nombre, apellido, domicilio, numeroTel, email, fechaNacimiento)
         {
             this._id = id;
+            this._cuenta = cuenta;
         }
 
         public Cliente()
@@ -26,7 +34,7 @@ namespace CuentaBancaria.Entidades
         }
         public override string ToString()
         {
-            return $" Id: {this._id}\n Nombre y apellido: {Nombre}\n DNI: {Dni}\n Domicilio: {Domicilio}\n Teléfono: {this.NumeroTel}\n Email: {Email}\n\n";
+            return $"{Nombre} {Apellido}, DNI: {Dni}\n //{this._id}\n\n";
         }
     }
 }

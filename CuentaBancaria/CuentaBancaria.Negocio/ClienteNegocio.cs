@@ -12,22 +12,39 @@ namespace CuentaBancaria.Negocio
     public class ClienteNegocio
     {
         private List<Cliente> _listaClientes;
-        private List<Cliente> _clientesValidados;
+        private List<Cuenta> _listaCuentas;
         private ClienteMapper _clienteMapper;
+        private CuentaMapper _cuentaMapper;
 
         public ClienteNegocio()
         {
             _listaClientes = new List<Cliente>();
-            _clientesValidados = new List<Cliente>();
+            _listaCuentas = new List<Cuenta>();
             _clienteMapper = new ClienteMapper();
+            _cuentaMapper = new CuentaMapper();
         }
 
         public List<Cliente> Traer()
         {
-            _listaClientes = _clienteMapper.TraerTodos();
-            _clientesValidados = ValidarClientes(_listaClientes);
-            if (_clientesValidados.Count == 0) throw new Exception("No existen clientes");
-            return _clientesValidados;
+            List<Cliente> clientes = _clienteMapper.TraerTodos();
+            _listaClientes = ValidarClientes(clientes);
+            _listaClientes = AgregarCuentas(_listaClientes);
+            if (_listaClientes.Count == 0) throw new Exception("No existen clientes");
+            return _listaClientes;
+        }
+
+        private List<Cliente> AgregarCuentas(List<Cliente> listaClientes)
+        {
+            _listaCuentas = _cuentaMapper.TraerTodos();
+            foreach (Cliente cliente in listaClientes)
+            {
+                foreach (Cuenta cuenta in _listaCuentas)
+                {
+                    if (cliente.Id == cuenta.IdCliente)
+                        cliente.Cuenta = cuenta;
+                }
+            }
+            return listaClientes;
         }
 
         private List<Cliente> ValidarClientes (List<Cliente> todos)
@@ -50,44 +67,51 @@ namespace CuentaBancaria.Negocio
                 valido = false;               
 
             if (string.IsNullOrEmpty(cliente.Nombre)) cliente.Nombre = string.Empty;
+            if (string.IsNullOrEmpty(cliente.Apellido)) cliente.Apellido = string.Empty;
             if (string.IsNullOrEmpty(cliente.Domicilio)) cliente.Domicilio = string.Empty;
             if (string.IsNullOrEmpty(cliente.NumeroTel)) cliente.NumeroTel = string.Empty;
             if (string.IsNullOrEmpty(cliente.Email)) cliente.Email = string.Empty;
+            if (cliente.FechaNacimiento == null) cliente.FechaNacimiento = DateTime.Parse("01/01/0001 00:00:00");
 
             return valido;
         }
 
-        public TransactionResult Agregar(int dni, string nombre, string domicilio, string telefono, string email)
+        public TransactionResult Agregar(int dni, string nombre, string apellido, string domicilio, string telefono, string email, DateTime fechaNacimiento)
         {
-            //BuscarCliente(dni);   
+            BuscarCliente(dni);   
             Cliente cliente = new Cliente();
             cliente.Dni = dni;
             cliente.Nombre = nombre;
+            cliente.Apellido = apellido;
             cliente.Domicilio = domicilio;
             cliente.NumeroTel = telefono;
             cliente.Email = email;
+            cliente.FechaNacimiento = fechaNacimiento;
+            cliente.Usuario = "847004";
             TransactionResult c = _clienteMapper.Insertar(cliente);
             return c;
         }
 
         private void BuscarCliente(int dni)
         {
-            foreach (Cliente cliente in Traer())
+            foreach (Cliente cliente in _clienteMapper.TraerTodos())
             {
                 if (cliente.Dni==dni)
                     throw new Exception("El cliente ya existe");
             }
         }
 
-        public TransactionResult Modificar(int id, int dni, string nombre, string domicilio, string telefono, string email)
+        public TransactionResult Modificar(int id, int dni, string nombre, string apellido, string domicilio, string telefono, string email, DateTime fechaNacimiento)
         {
             Cliente cliente = new Cliente();
             cliente.Id = id;
             cliente.Dni = dni;
             cliente.Nombre = nombre;
+            cliente.Apellido = apellido;
             cliente.Domicilio = domicilio;
             cliente.NumeroTel = telefono;
             cliente.Email = email;
+            cliente.FechaNacimiento = fechaNacimiento;
             TransactionResult c = _clienteMapper.Modificar(cliente);
             return c;
         }
@@ -103,11 +127,11 @@ namespace CuentaBancaria.Negocio
 
         private void BuscarCuentasCliente(int id)
         {
-            CuentaNegocio cuentaNegocio = new CuentaNegocio();
-            List<Cuenta> cuentasClientes = cuentaNegocio.TraerCuentasCliente(id);
-            if (cuentasClientes.Count != 0)
-                throw new Exception("El cliente no puede eliminarse, posee cuentas");
+            Cuenta cuentaCliente = _cuentaMapper.TraerCuentaCliente(id);
+            if (cuentaCliente != null)
+                throw new Exception("El cliente no puede eliminarse, posee cuentas a su nombre");
         }
+
 
     }
 }

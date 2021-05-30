@@ -16,6 +16,7 @@ namespace CuentaBancaria.Entidades
         string _tipo;
         bool _activa;
         double _saldo;
+        DateTime _fechaApertura;
 
         [DataMember(Name ="id")]
         public int Id { get => _id; set => _id = value; }
@@ -35,7 +36,10 @@ namespace CuentaBancaria.Entidades
         [DataMember(Name ="saldo")]
         public double Saldo { get => _saldo; set => _saldo = value; }
 
-        public Cuenta(int id, int idCliente, int numero, string tipo, bool activa, double saldo)
+        [DataMember(Name = "fechaApertura")]
+        public DateTime FechaApertura { get => _fechaApertura; set => _fechaApertura = value; }
+
+        public Cuenta(int id, int idCliente, int numero, string tipo, bool activa, double saldo, DateTime fechaApertura)
         {
             this._id = id;
             this._idCliente = idCliente;
@@ -43,6 +47,7 @@ namespace CuentaBancaria.Entidades
             this._tipo = tipo;
             this._activa = activa;
             this._saldo = saldo;
+            this._fechaApertura = fechaApertura;
         }
 
         public Cuenta ()
@@ -53,7 +58,7 @@ namespace CuentaBancaria.Entidades
 
         public override string ToString()
         {
-            return $"Id: {this.Id} - Tipo: {this._tipo} - N° {this.Numero} - Id Cliente: {this._idCliente}\n";
+            return $"Id: {this.Id} - Tipo: {this._tipo} - N° {this.Numero} / Id Cliente: {this._idCliente}\n";
         }
 
         public void ExtraerODepositarSaldo()

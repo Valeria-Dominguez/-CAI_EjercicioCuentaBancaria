@@ -41,7 +41,7 @@ namespace CuentaBancaria.Datos
             }
             catch (Exception exe)
             {
-                return "{ \"isOk\":false,\"id\":-1,\"error\":\"Error en el llamado al servicio\"}";
+                return "{ \"isOk\":false,\"id\":-1,\"error\":\"Error en el llamado al servicio\":}" ;
             }
         }
 

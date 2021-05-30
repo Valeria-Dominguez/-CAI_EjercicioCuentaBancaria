@@ -52,12 +52,6 @@
     <Compile Include="FormCuentas.Designer.cs">
       <DependentUpon>FormCuentas.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPedirCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormPedirCliente.Designer.cs">
-      <DependentUpon>FormPedirCliente.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,9 +80,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMenuPcipal.resx">
       <DependentUpon>FormMenuPcipal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormPedirCliente.resx">
-      <DependentUpon>FormPedirCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

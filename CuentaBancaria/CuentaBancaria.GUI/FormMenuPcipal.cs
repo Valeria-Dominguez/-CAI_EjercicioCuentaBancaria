@@ -34,9 +34,9 @@ namespace CuentaBancaria.GUI
 
         private void btnCuentas_Click(object sender, EventArgs e)
         {
-            FormPedirCliente FrmPedirCliente = new FormPedirCliente();
-            FrmPedirCliente.Owner = this;
-            FrmPedirCliente.Show();
+            FormCuentas FrmCuentas = new FormCuentas();
+            FrmCuentas.Owner = this;
+            FrmCuentas.Show();
             this.Hide();
         }
     }

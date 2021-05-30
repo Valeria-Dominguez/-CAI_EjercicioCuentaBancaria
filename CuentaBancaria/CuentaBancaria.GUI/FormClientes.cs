@@ -34,6 +34,7 @@ namespace CuentaBancaria.GUI
             {
                 lstClientes.DataSource = null;
                 lstClientes.DataSource = _clienteNegocio.Traer();
+                LimpiarCampos();
             }
             catch (Exception exe)
             {
@@ -66,6 +67,9 @@ namespace CuentaBancaria.GUI
                 txtIdCliente.Text = clienteSeleccionado.Id.ToString();
                 txtDni.Text = clienteSeleccionado.Dni.ToString();
                 txtNombre.Text = clienteSeleccionado.Nombre;
+                txtApellido.Text = clienteSeleccionado.Apellido;
+                txtEmail.Text = clienteSeleccionado.Email;
+                txtFechaNacim.Text = clienteSeleccionado.FechaNacimiento.ToString("dd/MM/yyyy");
                 txtDomicilio.Text = clienteSeleccionado.Domicilio;
                 txtTelefono.Text = clienteSeleccionado.NumeroTel.ToString();
                 txtEmail.Text = clienteSeleccionado.Email;
@@ -77,7 +81,7 @@ namespace CuentaBancaria.GUI
             try
             {
                 ValidarCampos();
-                TransactionResult resultado = _clienteNegocio.Agregar(int.Parse(txtDni.Text), txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
+                TransactionResult resultado = _clienteNegocio.Agregar(int.Parse(txtDni.Text), txtNombre.Text, txtApellido.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text, DateTime.Parse(txtFechaNacim.Text + " 00:00:00"));
                 MessageBox.Show(resultado.ToString());
                 LimpiarCampos();
                 CargarLista();
@@ -96,7 +100,8 @@ namespace CuentaBancaria.GUI
                 if (clienteSeleccionado.Id.ToString() != txtIdCliente.Text) { throw new Exception("No puede modificarse el ID"); }
 
                 ValidarCampos();
-                _clienteNegocio.Modificar(int.Parse(txtIdCliente.Text), int.Parse(txtDni.Text), txtNombre.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text);
+                _clienteNegocio.Modificar(int.Parse(txtIdCliente.Text), int.Parse(txtDni.Text), txtNombre.Text, txtApellido.Text, txtDomicilio.Text, txtTelefono.Text, txtEmail.Text, DateTime.Parse(txtFechaNacim.Text + " 00:00:00"));
+                
                 MessageBox.Show("Cliente modificado");
                 LimpiarCampos();
                 CargarLista();
@@ -126,17 +131,20 @@ namespace CuentaBancaria.GUI
         private void ValidarCampos()
         {
             if (
-                txtDni.Text == string.Empty ||
                 txtNombre.Text == string.Empty ||
                 txtDomicilio.Text == string.Empty ||
                 txtTelefono.Text == string.Empty ||
                 txtEmail.Text == string.Empty
                 )
                 throw new Exception("Ningún campo puede estar vacío");
-            else if (
+            if (
                 !int.TryParse(txtDni.Text, out int dni) 
                 )
                 throw new Exception("DNI : Debe ingresar un dni");
+            if (
+                !DateTime.TryParse(txtFechaNacim.Text + " 00:00:00", out DateTime fecha)
+                )
+                throw new Exception("Fecha inválida");
         }
 
         private void LimpiarCampos()
@@ -144,6 +152,8 @@ namespace CuentaBancaria.GUI
             txtIdCliente.Text = string.Empty;
             txtDni.Text = string.Empty;
             txtNombre.Text = string.Empty;
+            txtApellido.Text = string.Empty;
+            txtFechaNacim.Text = string.Empty;
             txtDomicilio.Text = string.Empty;
             txtTelefono.Text = string.Empty;
             txtEmail.Text = string.Empty;

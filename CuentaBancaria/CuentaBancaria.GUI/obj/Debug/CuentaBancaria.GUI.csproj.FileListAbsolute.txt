@@ -20,7 +20,6 @@ C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBanca
 C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.FormClientes.resources
 C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.FormCuentas.resources
 C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.FormMenuPcipal.resources
-C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.FormPedirCliente.resources
 C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.Properties.Resources.resources
 C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.csproj.GenerateResource.cache
 C:\Users\Valeria\Downloads\CAI\Ejercicios\Segunda parte\CAI_EjercicioCuentaBancaria\CuentaBancaria\CuentaBancaria.GUI\obj\Debug\CuentaBancaria.GUI.csproj.CoreCompileInputs.cache

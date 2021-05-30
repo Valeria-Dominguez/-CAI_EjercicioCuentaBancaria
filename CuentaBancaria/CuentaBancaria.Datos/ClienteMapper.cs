@@ -14,7 +14,7 @@ namespace CuentaBancaria.Datos
     {
         public List <Cliente> TraerTodos()
         {
-            string json = WebHelper.Get("cliente");
+            string json = WebHelper.Get("cliente/847004");
             List<Cliente> resultado = MapList(json);
             return resultado;
         }
@@ -39,9 +39,12 @@ namespace CuentaBancaria.Datos
             n.Add("id", cliente.Id.ToString());
             n.Add("dni", cliente.Dni.ToString());
             n.Add("nombre", cliente.Nombre);
+            n.Add("apellido", cliente.Apellido);
             n.Add("direccion", cliente.Domicilio);
             n.Add("telefono", cliente.NumeroTel);
             n.Add("email", cliente.Email);
+            n.Add("usuario", cliente.Usuario);
+            n.Add("fechaNacimiento", cliente.FechaNacimiento.ToString("yyyy-MM-dd"));
             return n;
         }
 

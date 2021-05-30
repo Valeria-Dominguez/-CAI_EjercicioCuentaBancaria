@@ -60,7 +60,6 @@ namespace CuentaBancaria.GUI
                 txtNumCuenta.Text = cuenta.Numero.ToString();
                 txtDescripcion.Text = cuenta.Tipo;
                 chkEstadoActiva.Checked = cuenta.Activa;
-                //if (cuenta.Activa == true) { chkEstadoActiva.Checked = true; } else { chkEstadoActiva.Checked = false; }
                 txtSaldo.Text = cuenta.Saldo.ToString("0.00");
                 txtFechaApertura.Text = cuenta.FechaApertura.ToString("yyyy-MM-dd");
                 txtDescripcion.Enabled = false;
@@ -88,23 +87,23 @@ namespace CuentaBancaria.GUI
             try
             {
                 Cliente clienteSeleccionado = (Cliente)cmbClientes.SelectedItem;
-
                 if (clienteSeleccionado.Cuenta == null)
-                {
-                    ValidarCamposAlta();
                     AltaCuenta(clienteSeleccionado);
-                }
-
                 else
-                {
-                    ValidarCamposModificacion();
                     ModificarSaldo(clienteSeleccionado);
-                }
             }
             catch (Exception excepcion)
             {
                 MessageBox.Show(excepcion.Message);
             }
+        }
+
+        private void AltaCuenta(Cliente clienteSeleccionado)
+        {
+            ValidarCamposAlta();
+            clienteSeleccionado.Cuenta = _cuentaNegocio.Agregar(clienteSeleccionado.Id, txtDescripcion.Text);
+            cmbClientes.SelectedIndex = 0;
+            MessageBox.Show("Cuenta agregada");
         }
         private void ValidarCamposAlta()
         {
@@ -112,6 +111,15 @@ namespace CuentaBancaria.GUI
                 txtDescripcion.Text == string.Empty
                 )
                 throw new Exception("Debe ingresar una descripción");
+        }
+
+        private void ModificarSaldo(Cliente clienteSeleccionado)
+        {
+            ValidarCamposModificacion();
+            clienteSeleccionado.Cuenta.Saldo = double.Parse(txtSaldo.Text);
+            clienteSeleccionado.Cuenta = _cuentaNegocio.Modificar(clienteSeleccionado.Cuenta);
+            cmbClientes.SelectedIndex = 0;
+            MessageBox.Show("Cuenta actualizada");
         }
         private void ValidarCamposModificacion()
         {
@@ -121,26 +129,12 @@ namespace CuentaBancaria.GUI
                 throw new Exception("Saldo : Debe ingresar un número");
         }
 
-        private void AltaCuenta(Cliente clienteSeleccionado)
-        {
-            clienteSeleccionado.Cuenta = _cuentaNegocio.Agregar(clienteSeleccionado.Id, txtDescripcion.Text);
-            cmbClientes.SelectedIndex = 0;
-            MessageBox.Show("Cuenta agregada");
-        }
-
-        private void ModificarSaldo(Cliente clienteSeleccionado)
-        {
-            clienteSeleccionado.Cuenta.Saldo = double.Parse(txtSaldo.Text);
-            clienteSeleccionado.Cuenta = _cuentaNegocio.Modificar(clienteSeleccionado.Cuenta);
-            cmbClientes.SelectedIndex = 0;
-            MessageBox.Show("Cuenta actualizada");
-        }
-
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Owner.Show();
             this.Hide();
         }
+
 
 
         //Btn activar / desactivar: visible = false
